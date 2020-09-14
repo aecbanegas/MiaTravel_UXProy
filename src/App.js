@@ -18,7 +18,7 @@ class App extends Component {
         >
         </Header>  
         <div className="app-body">
-          <Menu />
+          
           <div className="content">
           <CartDialog />
             <Switch>
@@ -41,3 +41,4 @@ class App extends Component {
 }
 
 export default App;
+//<Menu />

@@ -62,13 +62,7 @@ class ConnectedHeader extends Component {
       >
         <Toolbar>
           <div className="left-part">
-            <IconButton
-              onClick={() => {
-                this.props.dispatch(toggleMenu());
-              }}
-            >
-              <MenuIcon size="medium" />
-            </IconButton>
+            
             
       
             <TextField
@@ -136,3 +130,12 @@ class ConnectedHeader extends Component {
 
 const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
 export default Header;
+
+
+/*<IconButton
+  onClick={() => {
+    this.props.dispatch(toggleMenu());
+  }}
+>
+  <MenuIcon size="medium" />
+</IconButton>*/
