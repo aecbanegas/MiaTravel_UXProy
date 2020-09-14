@@ -8,6 +8,7 @@ import Menu from "./Components/Menu/Menu";
 import Details from "./Components/Details/Details";
 import Login from "./Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Carrousel from "./Components/Carrousel/Carrousel.js";
 
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
           <div className="content">
           <CartDialog />
             <Switch>
-              <Route path="/" exact component={ProductList} />
+              <Route path="/" exact component={Carrousel} />
               <Route path="/details/:id" component={Details} />
               <Route path="/login" component={Login} />
             
@@ -40,3 +41,6 @@ class App extends Component {
 
 export default App;
 //<Menu />
+
+//El primer path antes apuntaba a este componenete
+//<Route path="/" exact component={ProductList} />
