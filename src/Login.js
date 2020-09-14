@@ -49,17 +49,16 @@ class Login extends Component {
       
       return (
         <div>
-  
             {
               user
-                ? <Button style={{ marginLeft: 20 }}
+                ? <Button style={{ marginTop:6, marginLeft: 20, color: "#FFFFFF", borderColor:"#FFFFFF"}}
                 variant="outlined"
-                color="primary"
+                
                 onClick={signOut}>Sign out</Button>
                 
-                : <Button style={{ marginLeft: 20 }}
+                : <Button style={{ marginTop:6, marginLeft: 20, color: "#FFFFFF", borderColor:"#FFFFFF"}}
                 variant="outlined"
-                color="primary" onClick={signInWithGoogle}>Sign in with Google</Button>
+                onClick={signInWithGoogle}>Sign in with Google</Button>
             }
         </div>
       );

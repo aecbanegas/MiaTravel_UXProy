@@ -55,24 +55,55 @@ class ConnectedHeader extends Component {
     } = this.props;
 
     return (
-      
+
       <AppBar
         position="static"
-        style={{ backgroundColor: "#ADD8E6", padding: 10 }}
-      >
-        <Toolbar>
+        style={{ background: "linear-gradient(90deg, #36D1DC 0%, #5E83E5 100%)", padding: 10 }}>
+        <nav className="navbar navbar-expand-lg">
+          <a className="navbar-brand title" href="#">MiaTravel</a>
+          <div className="disp">
+            <ul className="nav justify-content-end">
+              <li className="nav-item ">
+                <a className="nav-link nav-item-font" href="#">Viajes</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link nav-item-font" href="#">Promociones</a>
+              </li>
+              <li className="nav-item">
+                <Login />
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </AppBar>
+    );
+  }
+}
+
+const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
+export default Header;
+
+
+/*<IconButton
+  onClick={() => {
+    this.props.dispatch(toggleMenu());
+  }}
+>
+  <MenuIcon size="medium" />
+</IconButton>*/
+
+
+/* LEGACY
+<Toolbar>
           <div className="left-part">
-            
-            
-      
             <TextField
               label="Buscar Productos"
-              
+
               value={this.state.searchTerm}
               onChange={e => {
                 this.setState({ searchTerm: e.target.value });
               }}
-            
+
               style={{ marginLeft: 30, width: 250, marginBottom: 15 }}
             />
 
@@ -109,7 +140,7 @@ class ConnectedHeader extends Component {
             </Button>
           </div>
           <div className="right-part">
-          
+
             <Login />
             <IconButton
               aria-label="Cart"
@@ -123,19 +154,5 @@ class ConnectedHeader extends Component {
             </IconButton>
           </div>
         </Toolbar>
-      </AppBar>
-    );
-  }
-}
 
-const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
-export default Header;
-
-
-/*<IconButton
-  onClick={() => {
-    this.props.dispatch(toggleMenu());
-  }}
->
-  <MenuIcon size="medium" />
-</IconButton>*/
+*/
