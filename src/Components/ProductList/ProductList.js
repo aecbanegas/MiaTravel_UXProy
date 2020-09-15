@@ -3,8 +3,20 @@ import Item from "../Item/Item";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import queryString from "query-string";
 import Api from "../../Api";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
+import { categories } from "../../Data";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import ProductsHeader from "../ProductsHeader/ProductsHeader";
+
+const categoryOptions = categories.map(x => {
+  return (
+    <MenuItem key={x.name} value={x.name}>
+      {x.name}
+    </MenuItem>
+  );
+});
 
 // This component is responsible for fetching products.
 // It determines from query string which products to fetch.
@@ -16,7 +28,8 @@ class ProductList extends Component {
     this.state = {
       loading: false,
       totalItemsCount: null,
-      items: []
+      items: [],
+      categoryFilterValue: categories[0].name
     };
     this.updateQueryStr = this.updateQueryStr.bind(this);
   }
@@ -73,20 +86,52 @@ class ProductList extends Component {
     }
 
     return (
-      <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        <ProductsHeader
-          parsedQueryStr={parsedQueryStr}
-          updateQueryStr={this.updateQueryStr}
-          totalItemsCount={this.state.totalItemsCount}
-        />
-
-        <div style={{ flex: 1 }}>
-          {this.state.items.map(item => {
-            return <Item key={item.id} item={item} />;
-          })}
+      <div>
+        <div style={{padding: 10}}>
+          <Select
+            style={{ maxWidth: 200, marginLeft: 20, color: "#36D1DC", borderColor: "#36D1DC" }}
+            value={this.state.categoryFilterValue}
+            MenuProps={{
+              style: {
+                maxHeight: 500
+              }
+            }}
+            onChange={e => {
+              this.setState({ categoryFilterValue: e.target.value });
+            }}
+          >
+            {categoryOptions}
+          </Select>
+          <Button
+            style={{ marginLeft: 20, color: "#36D1DC" }}
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              this.props.history.push(
+                "/?category=" +
+                this.state.categoryFilterValue +
+                "&term=" +
+                this.state.searchTerm
+              );
+            }}
+          >
+            {" "}
+              Buscar
+            </Button>
         </div>
+        <div style={{ height: "100%", display: "flex", flexDirection: "column", margin: 15}}>
+          <ProductsHeader
+            parsedQueryStr={parsedQueryStr}
+            updateQueryStr={this.updateQueryStr}
+            totalItemsCount={this.state.totalItemsCount}
+          />
 
-        
+          <div style={{ flex: 1 }}>
+            {this.state.items.map(item => {
+              return <Item key={item.id} item={item} />;
+            })}
+          </div>
+        </div>
       </div>
     );
   }
