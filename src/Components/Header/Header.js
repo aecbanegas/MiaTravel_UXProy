@@ -6,7 +6,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Badge from "@material-ui/core/Badge";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { showCartDlg, toggleMenu, logout } from "../../Redux/Actions";
 import cartImage from "../../Images/logo2.png";
@@ -60,14 +60,20 @@ class ConnectedHeader extends Component {
         position="static"
         style={{ background: "linear-gradient(90deg, #36D1DC 0%, #5E83E5 100%)", padding: 10 }}>
         <nav className="navbar navbar-expand-lg">
-          <a className="navbar-brand title" href="#">MiaTravel</a>
+          <a className="navbar-brand title" href="#">
+            <Link to="/">MiaTravel</Link>
+            </a>
           <div className="disp">
             <ul className="nav justify-content-end">
               <li className="nav-item ">
-                <a className="nav-link nav-item-font" href="#">Viajes</a>
+                <a className="nav-link nav-item-font" href="#">
+                  <Link to="/viajes">Viajes</Link>
+                  </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link nav-item-font" href="#">Promociones</a>
+                <a className="nav-link nav-item-font" href="#">
+                  <Link to="/promociones">Promociones</Link>
+                  </a>
               </li>
               <li className="nav-item">
                 <Login />
