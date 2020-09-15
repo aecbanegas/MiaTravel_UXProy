@@ -1,7 +1,4 @@
 .tam{
-    height: 100%;
-}
-
-.img{
-    height: auto;
+    height: 100% !important;
+    object-fit: contain;
 }

@@ -24,7 +24,6 @@ class App extends Component {
               <Route path="/" exact component={Carrousel} />
               <Route path="/details/:id" component={Details} />
               <Route path="/login" component={Login} />
-            
               <Route
                 component={() => (
                   <div style={{ padding: 20 }}>Page not found</div>
