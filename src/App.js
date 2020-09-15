@@ -9,6 +9,7 @@ import Details from "./Components/Details/Details";
 import Login from "./Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Carrousel from "./Components/Carrousel/Carrousel.js";
+import Footer from "./Components/Footer/Footer.js";
 
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
             </Switch>
           </div>
         </div>
-      
+        <Footer/>
       </div>
     );
   }

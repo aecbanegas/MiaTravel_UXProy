@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import img1 from '../../Images/Playas-públicas-de-Cancún-1280x720.jpg';
+import img1 from '../../Images/cancun.jpg';
 import img2 from '../../Images/Welcome-to-Roatan.jpg';
 import img3 from '../../Images/palmyra-before-the-war.jpg';
 import "./Carrousel.css";
@@ -17,14 +17,14 @@ class Carrousel extends Component {
                     </ol>
                     <div className="carousel-inner" role="listbox" style={{height:750}}>
                         <div className="carousel-item active tam">
-                            <img src={img1} className="d-block w-100 img-fluid" alt="..." />
+                            <img src={img1} className="d-block w-100" alt="..." />
                             <div className="carousel-caption d-none d-md-block">
                                 <h5>First slide label</h5>
                                 <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                             </div>
                         </div>
                         <div className="carousel-item tam">
-                            <img src={img2} className="d-block w-100 img-fluid" alt="..." />
+                            <img src={img2} className="d-block w-100" alt="..." />
                             <div className="carousel-caption d-none d-md-block">
                                 <h5>Second slide label</h5>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
