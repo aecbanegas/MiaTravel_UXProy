@@ -29,7 +29,8 @@ class ProductList extends Component {
       loading: false,
       totalItemsCount: null,
       items: [],
-      categoryFilterValue: categories[0].name
+      categoryFilterValue: categories[0].name,
+      searchTerm: "",
     };
     this.updateQueryStr = this.updateQueryStr.bind(this);
   }
@@ -108,7 +109,7 @@ class ProductList extends Component {
             color="primary"
             onClick={() => {
               this.props.history.push(
-                "/?category=" +
+                "/viajes/?category=" +
                 this.state.categoryFilterValue +
                 "&term=" +
                 this.state.searchTerm

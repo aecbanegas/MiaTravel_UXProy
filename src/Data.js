@@ -32,7 +32,7 @@ const sampleProducts = [
 // List of item categories.
 const categories = [
   {
-    name: "Todas las Categorias",
+    name: "Todos los Paquetes",
     icon: "list"
   },
   {

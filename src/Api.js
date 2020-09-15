@@ -55,7 +55,7 @@ class Api {
             return item.popular;
           }
 
-          if (category !== "Todas las Categorias" && category !== item.category)
+          if (category !== "Todos los Paquetes" && category !== item.category)
             return false;
 
           if (term && !item.name.toLowerCase().includes(term.toLowerCase()))
