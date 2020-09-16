@@ -89,7 +89,7 @@ class ProductList extends Component {
 
     return (
       <div style={{minHeight: 750}}>
-        <div style={{padding: 20, paddingBottom:0}}>
+        <div style={{padding: 20, paddingBottom:0, paddingLeft:25}}>
           <InputLabel>
             Busqueda por Filtros
           </InputLabel>
