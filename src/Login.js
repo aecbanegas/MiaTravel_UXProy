@@ -54,11 +54,11 @@ class Login extends Component {
                 ? <Button style={{ marginTop:6, marginLeft: 20, color: "#FFFFFF", borderColor:"#FFFFFF"}}
                 variant="outlined"
                 
-                onClick={signOut}>Sign out</Button>
+                onClick={signOut}>{getUserName()+" | Cerrar Sesión"}</Button>
                 
                 : <Button style={{ marginTop:6, marginLeft: 20, color: "#FFFFFF", borderColor:"#FFFFFF"}}
                 variant="outlined"
-                onClick={signInWithGoogle}>Sign in with Google</Button>
+                onClick={signInWithGoogle}>Registrarse con Google</Button>
             }
         </div>
       );

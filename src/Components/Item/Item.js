@@ -27,7 +27,7 @@ class ConnectedItem extends Component {
             style={{ height: 140 }}
             image={this.props.item.imageUrls[0]}
           />
-          <CardContent style={{ height: 50 }}>
+          <CardContent style={{ height: 270 }}>
             <div
               style={{
                 marginLeft: 5,
@@ -41,13 +41,24 @@ class ConnectedItem extends Component {
             </div>
             <div style={{ margin: 5 }}>Price: {this.props.item.price} $</div>
             <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
-              {this.props.item.popular && "Popular"}
+              {this.props.item.category}
             </div>
           </CardContent>
         </CardActionArea>
-        <CardActions
+        
+      </Card>
+    );
+  }
+}
+
+export default withRouter(connect()(ConnectedItem));
+
+
+/*
+<CardActions
           style={{ display: "flex", alignItems: "center", height: 45 }}
         >
+          <div>
           <Button
             size="small"
             style={{ marginRight: 60 }}
@@ -58,11 +69,7 @@ class ConnectedItem extends Component {
             {" "}
             Details
           </Button>
+          </div>
          
         </CardActions>
-      </Card>
-    );
-  }
-}
-
-export default withRouter(connect()(ConnectedItem));
+*/
