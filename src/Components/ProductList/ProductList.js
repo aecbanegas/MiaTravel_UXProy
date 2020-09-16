@@ -7,6 +7,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { categories } from "../../Data";
 import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from '@material-ui/core/InputLabel';
 
 import ProductsHeader from "../ProductsHeader/ProductsHeader";
 
@@ -87,10 +88,14 @@ class ProductList extends Component {
     }
 
     return (
-      <div>
-        <div style={{padding: 10}}>
+      <div style={{minHeight: 750}}>
+        <div style={{padding: 20, paddingBottom:0}}>
+          <InputLabel>
+            Busqueda por Filtros
+          </InputLabel>
           <Select
-            style={{ maxWidth: 200, marginLeft: 20, color: "#36D1DC", borderColor: "#36D1DC" }}
+            label="Busqueda por Filtros"
+            style={{ maxWidth: 200, marginLeft: 20, color: "#36D1DC"}}
             value={this.state.categoryFilterValue}
             MenuProps={{
               style: {
@@ -104,7 +109,7 @@ class ProductList extends Component {
             {categoryOptions}
           </Select>
           <Button
-            style={{ marginLeft: 20, color: "#36D1DC" }}
+            style={{ marginLeft: 20, color: "#36D1DC", borderColor: "#36D1DC" }}
             variant="outlined"
             color="primary"
             onClick={() => {
@@ -120,7 +125,7 @@ class ProductList extends Component {
               Buscar
             </Button>
         </div>
-        <div style={{ height: "100%", display: "flex", flexDirection: "column", margin: 15}}>
+        <div style={{ height: "100%", display: "flex", flexDirection: "column", marginLeft: 15}}>
           <ProductsHeader
             parsedQueryStr={parsedQueryStr}
             updateQueryStr={this.updateQueryStr}
