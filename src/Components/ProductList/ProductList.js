@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { categories } from "../../Data";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from '@material-ui/core/InputLabel';
+import auth from "../../Login";
 
 import ProductsHeader from "../ProductsHeader/ProductsHeader";
 
@@ -36,6 +37,13 @@ class ProductList extends Component {
     this.updateQueryStr = this.updateQueryStr.bind(this);
   }
 
+  componentDidMount = () => {
+    this.fetchData();
+    auth.onAuthStateChanged(userAuth => {
+      this.setState({ user: userAuth});
+    });
+  };
+
   async fetchData() {
     this.setState({ loading: true });
 
@@ -51,9 +59,9 @@ class ProductList extends Component {
     });
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     this.fetchData();
-  }
+  }*/
 
   updateQueryStr(newValues) {
     let current = queryString.parse(this.props.location.search);
@@ -90,6 +98,7 @@ class ProductList extends Component {
     return (
       <div style={{minHeight: 750}}>
         <div style={{padding: 20, paddingBottom:0, paddingLeft:25}}>
+          <div>{this.state.user}</div>
           <InputLabel>
             Busqueda por Filtros
           </InputLabel>

@@ -76,7 +76,7 @@ class ConnectedHeader extends Component {
                   </a>
               </li>
               <li className="nav-item">
-                <Login />
+                <Login/>
               </li>
             </ul>
           </div>

@@ -6,25 +6,27 @@ import { Switch, Route } from "react-router-dom";
 import CartDialog from "./Components/CartDialog/CartDialog";
 import Menu from "./Components/Menu/Menu";
 import Details from "./Components/Details/Details";
-import Login from "./Login";
+//import { user } from "./Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Carrousel from "./Components/Carrousel/Carrousel.js";
 import Footer from "./Components/Footer/Footer.js";
+import * as firebase from 'firebase/app';
 
 
 class App extends Component {
   render() {
+    //const user = firebase.auth().currentUser.displayName;;
     return (
       <div className="app">
         <Header/>  
         <div className="app-body">
           
           <div className="content">
-          <CartDialog />
+          <CartDialog/>
             <Switch>
               <Route path="/" exact component={Carrousel} />
               <Route path="/details/:id" component={Details} />
-              <Route path="/login" component={Login} />
+              
               <Route path="/viajes" component={ProductList}/>
               <Route path="/promociones"/>
               <Route
@@ -46,3 +48,5 @@ export default App;
 
 //El primer path antes apuntaba a este componenete
 //<Route path="/" exact component={ProductList} />
+
+//<Route path="/login" component={Login} />
