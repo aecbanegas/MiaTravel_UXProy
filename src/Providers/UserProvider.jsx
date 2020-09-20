@@ -1,10 +1,12 @@
 import React, { Component, createContext } from "react";
 import { auth, getDisplayName } from "../firebaseConfig";
 
-export const UserContext = createContext({ isAuth: false, name: ''});
+export const UserContext = createContext({ isAuth: false, name: '', email: ''});
 class UserProvider extends Component {
   state = {
-    isAuth: false, name: ''
+    isAuth: false, 
+    name: '',
+    email: ''
   };
 
   componentDidMount = () => {
@@ -16,7 +18,10 @@ class UserProvider extends Component {
           isAuth: !!userAuth,
           email: userAuth.displayName
         }*/
-        this.setState({ isAuth: !!userAuth, name: !!userAuth ? userAuth.displayName : ''});
+        this.setState({ isAuth: !!userAuth, 
+          name: !!userAuth ? userAuth.displayName : '',
+          email: !!userAuth ? userAuth.email : ''
+        });
     });
   };
   render() {
