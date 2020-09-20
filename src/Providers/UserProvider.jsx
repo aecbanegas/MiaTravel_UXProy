@@ -1,25 +1,27 @@
 import React, { Component, createContext } from "react";
 import { auth, getDisplayName } from "../firebaseConfig";
 
-export const UserContext = createContext({ user: false, name: ''});
+export const UserContext = createContext({ isAuth: false, name: ''});
 class UserProvider extends Component {
   state = {
-    user: false, 
-    name: ''
+    isAuth: false, name: ''
   };
 
   componentDidMount = () => {
     auth.onAuthStateChanged(userAuth => {
         //const getName = getDisplayName(userAuth);
+        console.log(!!userAuth)
         //console.log(userAuth.displayName)
-        this.setState({ user: userAuth});
-        
-      
+        /*const user = {
+          isAuth: !!userAuth,
+          email: userAuth.displayName
+        }*/
+        this.setState({ isAuth: !!userAuth, name: !!userAuth ? userAuth.displayName : ''});
     });
   };
   render() {
     return (
-      <UserContext.Provider value={this.state.user}>
+      <UserContext.Provider value={this.state}>
         {this.props.children}
       </UserContext.Provider>
     );
