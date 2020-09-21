@@ -4,13 +4,12 @@ import Header from "./Components/Header/Header.js";
 import ProductList from "./Components/ProductList/ProductList";
 import { Switch, Route } from "react-router-dom";
 import CartDialog from "./Components/CartDialog/CartDialog";
-import Menu from "./Components/Menu/Menu";
 import Details from "./Components/Details/Details";
-//import { user } from "./Login";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Carrousel from "./Components/Carrousel/Carrousel.js";
 import Footer from "./Components/Footer/Footer.js";
-import * as firebase from 'firebase/app';
+import ProductListPromo from "./Components/ProductListPromo/ProductListPromo";
+import PromoDetails from "./Components/PromoDetails/PromoDetails";
 
 
 class App extends Component {
@@ -26,9 +25,9 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Carrousel} />
               <Route path="/details/:id" component={Details} />
-              
+              <Route path="/promodetails/:id" component={PromoDetails} />
               <Route path="/viajes" component={ProductList}/>
-              <Route path="/promociones"/>
+              <Route path="/promociones" component={ProductListPromo}/>
               <Route
                 component={() => (
                   <div style={{ padding: 20 }}>Page not found</div>
