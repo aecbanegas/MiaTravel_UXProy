@@ -1,5 +1,5 @@
 import React, { Component, createContext } from "react";
-import { auth, getDisplayName } from "../firebaseConfig";
+import { auth } from "../firebaseConfig";
 
 export const UserContext = createContext({ isAuth: false, name: '', email: ''});
 class UserProvider extends Component {
