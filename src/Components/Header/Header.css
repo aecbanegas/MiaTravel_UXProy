@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Kaushan+Script&display=swap');
+
+.left-part {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    background-color: lightblue;
+}
+
+.right-part {
+    display: flex;
+    width:150px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.title {
+    width: 30%;
+    margin: 0%;
+    font-family: Kaushan Script;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 38px;
+    line-height: 55px;
+
+    color: #FFFFFF;
+}
+
+.nav-item-font{
+    font-family: Karla;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 30px;
+
+    color: #FFFFFF !important; 
+}
+
+.disp {
+    float: right;
+    width: 70%;
+}
+ 
