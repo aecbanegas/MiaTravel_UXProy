@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Header from "./Components/Header/Header.js";
+import { sampleCarrousel } from "./Data"
 import ProductList from "./Components/ProductList/ProductList";
 import { Switch, Route } from "react-router-dom";
 import CartDialog from "./Components/CartDialog/CartDialog";
@@ -11,15 +12,14 @@ import Footer from "./Components/Footer/Footer.js";
 import ProductListPromo from "./Components/ProductListPromo/ProductListPromo";
 import PromoDetails from "./Components/PromoDetails/PromoDetails";
 
-
 class App extends Component {
   render() {
     //const user = firebase.auth().currentUser.displayName;;
+    console.log(sampleCarrousel[0]);
     return (
       <div className="app">
         <Header/>  
         <div className="app-body">
-          
           <div className="content">
           <CartDialog/>
             <Switch>

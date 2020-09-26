@@ -2,6 +2,7 @@ import {firestore} from "./firebaseConfig";
 // Our product database.
 const sampleProducts = setProducts();
 const samplePromos = setPromos();
+const sampleCarrousel = setCarrousel();
 
 function setProducts(){
   var sample = [];
@@ -16,6 +17,22 @@ function setProducts(){
       }
     ).catch(error=> console.log(error))
     return sample
+}
+
+function setCarrousel() {
+  var sampledata = [];
+  firestore.collection('carrousel')
+    .get()
+    .then(
+      snapshot=> {
+        snapshot.forEach(doc=>{
+          const data=doc.data()
+          sampledata.push(data)
+        })
+        console.log(sampledata)
+      }
+    ).catch(error=> console.log(error))
+    return sampledata
 }
 
 function setPromos(){
@@ -75,4 +92,4 @@ const dataForTheMenu = [
   }
 ];
 
-export { sampleProducts, categories, dataForTheMenu, samplePromos };
+export { sampleProducts, categories, dataForTheMenu, samplePromos, sampleCarrousel };
