@@ -9,6 +9,16 @@ import { sampleCarrousel } from "../../Data.js"
 
 //<img src={img1} className="d-block w-100" alt="..." />
 class Carrousel extends Component {
+    constructor() {
+        super();
+        this.state = {
+            sampledata: sampleCarrousel
+        }
+        setTimeout(() => {
+            this.setState({ sampledata: sampleCarrousel })
+            console.log('Me actualice')
+        }, 2000)
+    }
     render() {
         return (
             <div id="carouselExampleCaptions" className="carousel slide" data-ride="carousel">
@@ -18,7 +28,21 @@ class Carrousel extends Component {
                     <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
                 </ol>
                 <div className="carousel-inner" role="listbox" style={{ height: 750 }}>
-                    {console.log("Hola bebe"+sampleCarrousel[0])}
+                    {this.state.sampledata.map((value, index) => (
+                        index==0?(<div className="carousel-item active tam" key={index}>
+                            <img src={value.image} className="d-block w-100" alt="..." />
+                            <div className="carousel-caption d-none d-md-block" style={{ background: "rgba(0, 0, 0, 0.75)"}}>
+                                <h5>{value.header}</h5>
+                                <p>{value.body}</p>
+                            </div>
+                        </div>):(<div className="carousel-item tam" key={index}>
+                            <img src={value.image} className="d-block w-100" alt="..." />
+                            <div className="carousel-caption d-none d-md-block" style={{ background: "rgba(0, 0, 0, 0.75)"}}>
+                                <h5>{value.header}</h5>
+                                <p>{value.body}</p>
+                            </div>
+                        </div>)
+                    ))}
                 </div>
                 <a className="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
