@@ -39,7 +39,7 @@ class ConnectedDetails extends Component {
     //console.log(name, email)
     const templateId = 'template_ji1ib2c';
 
-	this.sendFeedback(templateId, {message_html: this.state.item.name, from_name: name, reply_to: email, email})
+	this.sendFeedback(templateId, {message_html: this.state.item.name, from_name: name, reply_to: email, email, precio:this.state.item.price, imagen: this.state.item.imageUrls })
   }
 
   sendFeedback (templateId, variables) {
