@@ -7,6 +7,8 @@ import Api from "../../Api";
 import Item from "../Item/Item";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
+import Login from "../../Login";
+import UserProvider, { UserContext } from "../../Providers/UserProvider";
 
 class ConnectedDetails extends Component {
   constructor(props) {
@@ -14,13 +16,44 @@ class ConnectedDetails extends Component {
 
     this.isCompMounted = false;
 
+
+    console.log(this.context);
+
     this.state = {
       relatedItems: [],
       quantity: 1,
       item: null,
-      itemLoading: false
+      itemLoading: false,
+      feedback: "", name: "" , email: "renatovarela13@gmail.com"
     };
+    //this.handleChange = this.handleChange.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  
+  handleChange = (event) => {
+    this.setState({feedback: event.target.value})
+  }
+  
+  handleSubmit = (name, email) => {
+    //console.log(name, email)
+    const templateId = 'template_ji1ib2c';
+
+	this.sendFeedback(templateId, {message_html: this.state.item.name, from_name: name, reply_to: email, email, precio:this.state.item.price, imagen: this.state.item.imageUrls })
+  }
+
+  sendFeedback (templateId, variables) {
+    window.emailjs.send(
+      'miaTravel', templateId,
+      variables
+      ).then(res => {
+        console.log('Email successfully sent!')
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+    }
+
+
 
   async fetchProductAndRelatedItems(productId) {
     this.setState({ itemLoading: true });
@@ -68,110 +101,118 @@ class ConnectedDetails extends Component {
     }
 
     return (
-      <div style={{ padding: 10 }}>
-        <div
-          style={{
-            marginBottom: 20,
-            marginTop: 10,
-            fontSize: 22
-          }}
-        >
-          {this.state.item.name}
-        </div>
-        <div style={{ display: "flex" }}>
-          <img
-            src={this.state.item.imageUrls[0]}
-            alt=""
-            width={250}
-            height={250}
-            style={{
-              border: "1px solid lightgray",
-              borderRadius: "5px",
-              objectFit: "cover"
-            }}
-          />
+      <UserContext.Consumer>
+       {context => (
+          <div style={{ padding: 10 }}>
           <div
             style={{
-              flex: 1,
-              marginLeft: 20,
-              display: "flex",
-              flexDirection: "column"
+              marginBottom: 20,
+              marginTop: 10,
+              fontSize: 22
             }}
           >
+            {this.state.item.name}
+          </div>
+          <div style={{ display: "flex" }}>
+            <img
+              src={this.state.item.imageUrls[0]}
+              alt=""
+              width={250}
+              height={250}
+              style={{
+                border: "1px solid lightgray",
+                borderRadius: "5px",
+                objectFit: "cover"
+              }}
+            />
             <div
               style={{
-                fontSize: 16
+                flex: 1,
+                marginLeft: 20,
+                display: "flex",
+                flexDirection: "column"
               }}
             >
-              Price: {this.state.item.price} $
-            </div>
-            {this.state.item.popular && (
-              <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                (Popular product)
+              <div
+                style={{
+                  fontSize: 16
+                }}
+              >
+                Price: {this.state.item.price} $
               </div>
-            )}
-
-            
-              <Button
-              style={{ width: 170, marginTop: 5 }}
-              color="inherit"
-              variant="outlined"
-              onClick={() => {
-                this.props.dispatch(
-                  addItemInCart({
-                    ...this.state.item,
-                    quantity: this.state.quantity
-                  })
-                );
-              }}
-            >
-              Reservar <AddShoppingCartIcon style={{ marginLeft: 5}} />
-            </Button>
-            
+              {this.state.item.popular && (
+                <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
+                  (Popular product)
+                </div>
+              )}
+  
+              
+                <Button
+                style={{ width: 170, marginTop: 5 }}
+                color="inherit"
+                variant="outlined"
+                onClick={() => {
+                  this.props.dispatch(
+                    addItemInCart({
+                      ...this.state.item,
+                      quantity: this.state.quantity
+                    })
+                  );
+                  this.handleSubmit(context.name, context.email);
+                }}
+              >
+                Reservar <AddShoppingCartIcon style={{ marginLeft: 5}} />
+              </Button>
+              
+            </div>
           </div>
+  
+          {/* Product description */}
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              fontSize: 22
+            }}
+          >
+            Product Description
+          </div>
+          <div
+            style={{
+              maxHeight: 200,
+              fontSize: 13,
+              overflow: "auto"
+            }}
+          >
+            {this.state.item.description
+              ? this.state.item.description
+              : "Not available"}
+          </div>
+  
+          {/* Relateditems */}
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 10,
+              fontSize: 22
+            }}
+          >
+       
+  
+       
+          </div>
+          {this.state.relatedItems.slice(0, 3).map(x => {
+            return <Item key={x.id} item={x} />;
+          })}
         </div>
-
-        {/* Product description */}
-        <div
-          style={{
-            marginTop: 20,
-            marginBottom: 20,
-            fontSize: 22
-          }}
-        >
-          Product Description
-        </div>
-        <div
-          style={{
-            maxHeight: 200,
-            fontSize: 13,
-            overflow: "auto"
-          }}
-        >
-          {this.state.item.description
-            ? this.state.item.description
-            : "Not available"}
-        </div>
-
-        {/* Relateditems */}
-        <div
-          style={{
-            marginTop: 20,
-            marginBottom: 10,
-            fontSize: 22
-          }}
-        >
-     
-
-     
-        </div>
-        {this.state.relatedItems.slice(0, 3).map(x => {
-          return <Item key={x.id} item={x} />;
-        })}
-      </div>
+       )}
+      </UserContext.Consumer>  
     );
   }
+
+
 }
+// ConnectedDetails.contextType = UserContext;
 
 let Details = connect()(ConnectedDetails);
 export default Details;

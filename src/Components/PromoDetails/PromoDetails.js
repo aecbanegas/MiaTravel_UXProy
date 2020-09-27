@@ -7,6 +7,8 @@ import ApiPromo from "../../ApiPromo";
 import Item from "../Item/Item";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
+import Login from "../../Login";
+import UserProvider, { UserContext } from "../../Providers/UserProvider";
 
 class ConnectedPromoDetails extends Component {
   constructor(props) {
@@ -18,10 +20,31 @@ class ConnectedPromoDetails extends Component {
       relatedItems: [],
       quantity: 1,
       item: null,
-      itemLoading: false
+      itemLoading: false,
+      feedback: "", name: "" , email: "renatovarela13@gmail.com"
     };
   }
+  handleChange = (event) => {
+    this.setState({feedback: event.target.value})
+  }
+  
+  handleSubmit = (name, email) => {
+    //console.log(name, email)
+    const templateId = 'template_ji1ib2c';
 
+	this.sendFeedback(templateId, {message_html: this.state.item.name, from_name: name, reply_to: email, email , precio:this.state.item.price, imagen: this.state.item.imageUrls })
+  }
+
+  sendFeedback (templateId, variables) {
+    window.emailjs.send(
+      'miaTravel', templateId,
+      variables
+      ).then(res => {
+        console.log('Email successfully sent!')
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+    }
   async fetchProductAndRelatedItems(productId) {
     this.setState({ itemLoading: true });
 
@@ -68,6 +91,8 @@ class ConnectedPromoDetails extends Component {
     }
 
     return (
+      <UserContext.Consumer>
+       {context => (
       <div style={{ padding: 10 }}>
         <div
           style={{
@@ -123,6 +148,7 @@ class ConnectedPromoDetails extends Component {
                     quantity: this.state.quantity
                   })
                 );
+                this.handleSubmit(context.name, context.email);
               }}
             >
               Reservar <AddShoppingCartIcon style={{ marginLeft: 5}} />
@@ -168,7 +194,9 @@ class ConnectedPromoDetails extends Component {
         {this.state.relatedItems.slice(0, 3).map(x => {
           return <Item key={x.id} item={x} />;
         })}
-      </div>
+        </div>
+       )}
+      </UserContext.Consumer>
     );
   }
 }
