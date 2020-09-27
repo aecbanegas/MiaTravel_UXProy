@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import ItemPromo from "../ItemPromo/ItemPromo";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import queryString from "query-string";
@@ -8,8 +8,35 @@ import Button from "@material-ui/core/Button";
 import { categories } from "../../Data";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from '@material-ui/core/InputLabel';
-
+import { UserContext } from "../../Providers/UserProvider";
 import ProductsHeader from "../ProductsHeader/ProductsHeader";
+import { Link } from "react-router-dom";
+import Modal from 'react-modal'
+
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+  },
+  content: {
+    position: 'absolute',
+    top: '18%',
+    left: '25%',
+    right: '25%',
+    bottom: 'auto',
+    border: '1px solid #ccc', //borderColor: "#36D1DC"
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px'
+  }
+};
 
 const categoryOptions = categories.map(x => {
   return (
@@ -87,12 +114,25 @@ class ProductListPromo extends Component {
 
   render() {
     let parsedQueryStr = queryString.parse(this.props.location.search);
-
     if (this.state.loading) {
       return <CircularProgress className="circular" />;
     }
-
     return (
+      <UserContext.Consumer>
+        {context => (
+      !context.isAuth 
+      ? 
+      <Modal 
+      isOpen={true}
+      style={customStyles}
+      >
+        <h2 className="title">Mia Travel</h2>
+        <hr/>
+        <p className="text">Solo los usuarios registrados pueden revisar las promociones! <br/>
+        Lo sentimos :(</p>
+        <Link to="/" style={{ color: "#36D1DC" }}>Back to Home</Link>
+      </Modal> 
+      :
       <div style={{minHeight: 750}}>
         <div style={{padding: 20, paddingBottom:0, paddingLeft:25}}>
           <InputLabel>
@@ -144,8 +184,21 @@ class ProductListPromo extends Component {
           </div>
         </div>
       </div>
+      )}
+      </UserContext.Consumer>
     );
   }
 }
 
 export default ProductListPromo;
+
+/*
+<Button
+          style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC"}}
+          color="inherit"
+          variant="outlined"
+          onClick={}
+        >
+          Close
+        </Button>
+*/
