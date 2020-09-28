@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Modal from 'react-modal'
 import Button from "@material-ui/core/Button";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { addItemInCart } from "../../Redux/Actions";
 import Api from "../../Api";
@@ -9,8 +8,9 @@ import Item from "../Item/Item";
 import "./Details.css"
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
-import Login from "../../Login";
-import UserProvider, { UserContext } from "../../Providers/UserProvider";
+import { UserContext } from "../../Providers/UserProvider";
+import InputLabel from '@material-ui/core/InputLabel';
+
 //import Modal from "../Modal/ReserveModal";
 
 const customStyles = {
@@ -36,14 +36,6 @@ const customStyles = {
     outline: 'none',
     padding: '20px'
   }
-  /*content : {
-    top                   : '50',
-    left                  : '50px',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '50%',
-    transform             : 'translate(-50%,-50%)'
-  }*/
 };
 
 Modal.setAppElement('#root')
@@ -62,17 +54,25 @@ class ConnectedDetails extends Component {
       quantity: 1,
       item: null,
       itemLoading: false,
-      feedback: "", name: "", email: "renatovarela13@gmail.com",
+      feedback: "", name: "", email: "",
       show: false,
+      isAlreadyReserved: false
     };
     //this.handleChange = this.handleChange.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  reverse = () => {
+    this.setState({
+      ...this.state,
+      isAlreadyReserved: true
+    }, () => { console.log("Cambio") });
   }
 
   showModal = () => {
     this.setState({
       ...this.state,
-      show: !this.state.show
+      show: !this.state.show,
+      //isAlreadyReserved: true
     });
   }
 
@@ -136,6 +136,14 @@ class ConnectedDetails extends Component {
     this.isCompMounted = false;
   }
 
+  ValidateEmail(mail){
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)){
+      this.setState({ email: mail });
+    } else {
+      this.setState({ email: "error" });
+    }
+  }
+  
   render() {
     if (this.state.itemLoading) {
       return <CircularProgress className="circular" />;
@@ -146,132 +154,185 @@ class ConnectedDetails extends Component {
     }
 
     return (
-      <div>
-        <Modal 
-        isOpen={this.state.show}
-        style={customStyles}
-        >
-          <h2 className="title">Mia Travel</h2>
-          <hr/>
-          <p className="text">Su reserva fue exitosa!!! <br/> revise su correo :D</p>
-          <Button
-            style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC"}}
-            color="inherit"
-            variant="outlined"
-            onClick={() => { this.showModal() }}
-          >
-            Close
-          </Button>
-        </Modal>
       <UserContext.Consumer>
         {context => (
-          <div style={{ padding: 10 }}>
-            
-            <div
-              style={{
-                marginBottom: 20,
-                marginTop: 10,
-                fontSize: 22
-              }}
+          <div>
+            <Modal
+              isOpen={this.state.show}
+              style={customStyles}
             >
-              {this.state.item.name}
-            </div>
-            <div style={{ display: "flex" }}>
-              <img
-                src={this.state.item.imageUrls[0]}
-                alt=""
-                width={250}
-                height={250}
-                style={{
-                  border: "1px solid lightgray",
-                  borderRadius: "5px",
-                  objectFit: "cover"
-                }}
-              />
+              <h2 className="title">Mia Travel</h2>
+              <hr />
+              <p className="text">Su reserva fue exitosa!!! <br /> revise su correo :D</p>
+              <Button
+                style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC" }}
+                color="inherit"
+                variant="outlined"
+                onClick={() => { this.showModal() }}
+              >
+                Close
+          </Button>
+            </Modal>
+            <div style={{ padding: 10 }}>
               <div
                 style={{
-                  flex: 1,
-                  marginLeft: 20,
-                  display: "flex",
-                  flexDirection: "column"
+                  marginBottom: 20,
+                  marginTop: 10,
+                  fontSize: 22
                 }}
               >
+                {this.state.item.name}
+              </div>
+              <div style={{ display: "flex" }}>
+                <img
+                  src={this.state.item.imageUrls[0]}
+                  alt=""
+                  width={250}
+                  height={250}
+                  style={{
+                    border: "1px solid lightgray",
+                    borderRadius: "5px",
+                    objectFit: "cover"
+                  }}
+                />
                 <div
                   style={{
-                    fontSize: 16
+                    flex: 1,
+                    marginLeft: 20,
+                    display: "flex",
+                    flexDirection: "column"
                   }}
                 >
-                  Price: {this.state.item.price} $
+                  <div
+                    style={{
+                      fontSize: 16
+                    }}
+                  >
+                    Price: {this.state.item.price} $
               </div>
-                {this.state.item.popular && (
-                  <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                    (Popular product)
-                  </div>
-                )}
-                  <Button
-                  style={{ width: 170, marginTop: 5, borderColor:"#36D1DC"}}
-                  color="inherit"
-                  variant="outlined"
-                  onClick={() => {
-                    this.props.dispatch(
-                      addItemInCart({
-                        ...this.state.item,
-                        quantity: this.state.quantity
-                      })
-                    );
-                    //this.handleSubmit(context.name, context.email);
-                    this.showModal();
-                  }}
-                >
-                  Reservar
+                  {this.state.item.popular && (
+                    <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
+                      (Popular product)
+                    </div>
+                  )}
+                  {(!context.isAuth) && (<div>
+                    <TextField
+                    label="Introduzca su nombre"
+                    value={this.state.name}
+                    onChange={e => {
+                      this.setState({ name: e.target.value });
+                    }}
+                    style={{ marginLeft: 30, width: 250, marginBottom: 15 }}
+                    />
+                    <TextField
+                    label="Introduzca su email"
+                    value={this.state.email}
+                    onChange={e => {
+                      this.ValidateEmail(e.target.value)
+                      //this.setState({ name: e.target.value });
+                    }}
+                    style={{ marginLeft: 30, width: 250, marginBottom: 15 }}
+                    />
+                  </div>)}
+                    <Button
+                      style={{ width: 170, marginTop: 5, borderColor: "#36D1DC" }}
+                      color="inherit"
+                      variant="outlined"
+                      onClick={() => {
+                        this.props.dispatch(
+                          addItemInCart({
+                            ...this.state.item,
+                            quantity: this.state.quantity
+                          })
+                        );
+                        //this.handleSubmit(context.name, context.email);
+                        if (context.isAuth) {
+                          var isAlreadyReserved = false
+                          if (!!localStorage.getItem(context.email)) {
+                            JSON.parse(localStorage.getItem(context.email)).forEach(element => {
+                              console.log("Busco")
+                              if (element === this.state.item.id) {
+                                console.log("Entro")
+                                isAlreadyReserved = true
+                              }
+                            });
+                            if (isAlreadyReserved === false) {
+                              let temp = JSON.parse(localStorage.getItem(context.email))
+                              temp.push(this.state.item.id)
+                              localStorage.setItem(context.email, JSON.stringify(temp));
+                            }
+                          } else {
+                            var temp = new Array()
+                            temp.push(this.state.item.id)
+                            localStorage.setItem(context.email, JSON.stringify(temp));
+                          }
+
+                        }else{
+                          if (this.state.email === "error"){
+                            alert("Lo sentimos su correo no es valido")
+                          }else{
+                            this.handleSubmit(this.state.name, this.state.email);
+                            this.setState({
+                              name:'',
+                              email:''
+                            })
+                          }
+                        }
+                        this.showModal();
+                        this.reverse();
+                        console.log(this.state.isAlreadyReserved)
+                      }}
+                    >
+                      Reservar
                 </Button>
 
+                  </div>
+              </div>
+
+                {/* Product description */}
+                <div
+                  style={{
+                    marginTop: 20,
+                    marginBottom: 20,
+                    fontSize: 22
+                  }}
+                >
+                  Product Description
+          </div>
+                <div
+                  style={{
+                    maxHeight: 200,
+                    fontSize: 13,
+                    overflow: "auto"
+                  }}
+                >
+                  {this.state.item.description
+                    ? this.state.item.description
+                    : "Not available"}
+                </div>
+
+                {/* Relateditems */}
+                <div
+                  style={{
+                    marginTop: 20,
+                    marginBottom: 10,
+                    fontSize: 22
+                  }}
+                >
+
+
+
+                </div>
+                {this.state.relatedItems.slice(0, 3).map(x => {
+                  return <Item key={x.id} item={x} />;
+                })}
+
               </div>
             </div>
-
-            {/* Product description */}
-            <div
-              style={{
-                marginTop: 20,
-                marginBottom: 20,
-                fontSize: 22
-              }}
-            >
-              Product Description
-          </div>
-            <div
-              style={{
-                maxHeight: 200,
-                fontSize: 13,
-                overflow: "auto"
-              }}
-            >
-              {this.state.item.description
-                ? this.state.item.description
-                : "Not available"}
-            </div>
-
-            {/* Relateditems */}
-            <div
-              style={{
-                marginTop: 20,
-                marginBottom: 10,
-                fontSize: 22
-              }}
-            >
-
-
-
-            </div>
-            {this.state.relatedItems.slice(0, 3).map(x => {
-              return <Item key={x.id} item={x} />;
-            })}
-            
-          </div>
         )}
       </UserContext.Consumer>
-      </div>
-    );
+
+        );
   }
 
 
