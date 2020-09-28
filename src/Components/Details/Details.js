@@ -238,7 +238,7 @@ class ConnectedDetails extends Component {
                             quantity: this.state.quantity
                           })
                         );
-                        //this.handleSubmit(context.name, context.email);
+                        this.handleSubmit(context.name, context.email);
                         if (context.isAuth) {
                           var isAlreadyReserved = false
                           if (!!localStorage.getItem(context.email)) {
