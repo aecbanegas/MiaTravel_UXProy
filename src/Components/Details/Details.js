@@ -241,18 +241,17 @@ class ConnectedDetails extends Component {
                         
                         if (context.isAuth) {
                           this.handleSubmit(context.name, context.email);
+                          this.showModal();
                         }else{
                           if (this.state.email === "error"){
                             alert("Lo sentimos su correo no es valido")
+                          }else if (this.state.email === "" || this.state.name === ""){
+                            alert("Lo sentimos ambos campos deben estar llenos")
                           }else{
                             this.handleSubmit(this.state.name, this.state.email);
-                            this.setState({
-                              name:'',
-                              email:''
-                            })
+                            this.showModal();
                           }
                         }
-                        this.showModal();
                         //this.reverse();
                         //console.log(this.state.isAlreadyReserved)
                       }}
