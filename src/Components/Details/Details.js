@@ -238,28 +238,9 @@ class ConnectedDetails extends Component {
                             quantity: this.state.quantity
                           })
                         );
-                        this.handleSubmit(context.name, context.email);
+                        
                         if (context.isAuth) {
-                          var isAlreadyReserved = false
-                          if (!!localStorage.getItem(context.email)) {
-                            JSON.parse(localStorage.getItem(context.email)).forEach(element => {
-                              console.log("Busco")
-                              if (element === this.state.item.id) {
-                                console.log("Entro")
-                                isAlreadyReserved = true
-                              }
-                            });
-                            if (isAlreadyReserved === false) {
-                              let temp = JSON.parse(localStorage.getItem(context.email))
-                              temp.push(this.state.item.id)
-                              localStorage.setItem(context.email, JSON.stringify(temp));
-                            }
-                          } else {
-                            var temp = new Array()
-                            temp.push(this.state.item.id)
-                            localStorage.setItem(context.email, JSON.stringify(temp));
-                          }
-
+                          this.handleSubmit(context.name, context.email);
                         }else{
                           if (this.state.email === "error"){
                             alert("Lo sentimos su correo no es valido")
