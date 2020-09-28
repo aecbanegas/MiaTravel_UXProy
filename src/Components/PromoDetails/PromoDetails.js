@@ -50,6 +50,15 @@ class ConnectedPromoDetails extends Component {
       feedback: "", name: "" , email: "renatovarela13@gmail.com"
     };
   }
+
+  showModal = () => {
+    this.setState({
+      ...this.state,
+      show: !this.state.show,
+      //isAlreadyReserved: true
+    });
+  }
+
   handleChange = (event) => {
     this.setState({feedback: event.target.value})
   }
@@ -135,6 +144,15 @@ class ConnectedPromoDetails extends Component {
          </Modal> 
          :
       <div style={{ padding: 10 }}>
+         <Modal
+              isOpen={this.state.show}
+              style={customStyles}
+            >
+              <h2 className="title">Mia Travel</h2>
+              <hr />
+              <p className="text">Su reserva fue exitosa!!! <br /> revise su correo :D</p>
+              <Link to="/" style={{ color: "#36D1DC" }}>Back to Home</Link>
+            </Modal>
         <div
           style={{
             marginBottom: 20,
@@ -190,9 +208,10 @@ class ConnectedPromoDetails extends Component {
                   })
                 );
                 this.handleSubmit(context.name, context.email);
+                this.showModal();
               }}
             >
-              Reservar <AddShoppingCartIcon style={{ marginLeft: 5}} />
+              Reservar 
             </Button>
             
           </div>

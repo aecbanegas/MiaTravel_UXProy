@@ -9,7 +9,7 @@ import "./Details.css"
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import { UserContext } from "../../Providers/UserProvider";
-import InputLabel from '@material-ui/core/InputLabel';
+import { Link } from "react-router-dom";
 
 //import Modal from "../Modal/ReserveModal";
 
@@ -166,14 +166,7 @@ class ConnectedDetails extends Component {
               <h2 className="title">Mia Travel</h2>
               <hr />
               <p className="text">Su reserva fue exitosa!!! <br /> revise su correo :D</p>
-              <Button
-                style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC" }}
-                color="inherit"
-                variant="outlined"
-                onClick={() => { this.showModal() }}
-              >
-                Close
-          </Button>
+              <Link to="/" style={{ color: "#36D1DC" }}>Back to Home</Link>
             </Modal>
             <div style={{ padding: 10 }}>
               <div
@@ -220,7 +213,6 @@ class ConnectedDetails extends Component {
                   {(!context.isAuth) && (<div>
                     <TextField
                     label="Introduzca su nombre"
-                    value={this.state.name}
                     onChange={e => {
                       this.setState({ name: e.target.value });
                     }}
@@ -228,7 +220,6 @@ class ConnectedDetails extends Component {
                     />
                     <TextField
                     label="Introduzca su email"
-                    value={this.state.email}
                     onChange={e => {
                       this.ValidateEmail(e.target.value)
                       //this.setState({ name: e.target.value });
@@ -281,8 +272,8 @@ class ConnectedDetails extends Component {
                           }
                         }
                         this.showModal();
-                        this.reverse();
-                        console.log(this.state.isAlreadyReserved)
+                        //this.reverse();
+                        //console.log(this.state.isAlreadyReserved)
                       }}
                     >
                       Reservar
