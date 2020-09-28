@@ -4,12 +4,38 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { addItemInCart } from "../../Redux/Actions";
 import ApiPromo from "../../ApiPromo";
-import Item from "../Item/Item";
+import ItemPromo from "../ItemPromo/ItemPromo";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Login from "../../Login";
 import UserProvider, { UserContext } from "../../Providers/UserProvider";
+import { Link } from "react-router-dom";
+import Modal from 'react-modal'
 
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+  },
+  content: {
+    position: 'absolute',
+    top: '18%',
+    left: '25%',
+    right: '25%',
+    bottom: 'auto',
+    border: '1px solid #ccc', //borderColor: "#36D1DC"
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px'
+  }
+};
 class ConnectedPromoDetails extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +100,9 @@ class ConnectedPromoDetails extends Component {
 
   componentDidMount() {
     this.isCompMounted = true;
-    this.fetchProductAndRelatedItems(this.props.match.params.id);
+    setTimeout(()=>{
+      this.fetchProductAndRelatedItems(this.props.match.params.id);
+    },800)
   }
 
   componentWillUnmount() {
@@ -93,6 +121,19 @@ class ConnectedPromoDetails extends Component {
     return (
       <UserContext.Consumer>
        {context => (
+         !context.isAuth 
+         ? 
+         <Modal 
+         isOpen={true}
+         style={customStyles}
+         >
+           <h2 className="title">Mia Travel</h2>
+           <hr/>
+           <p className="text">Solo los usuarios registrados pueden revisar las promociones! <br/>
+           Lo sentimos :(</p>
+           <Link to="/" style={{ color: "#36D1DC" }}>Back to Home</Link>
+         </Modal> 
+         :
       <div style={{ padding: 10 }}>
         <div
           style={{
@@ -128,11 +169,11 @@ class ConnectedPromoDetails extends Component {
                 fontSize: 16
               }}
             >
-              Price: {this.state.item.price} $
+              Precio: {this.state.item.price} $
             </div>
             {this.state.item.popular && (
               <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                (Popular product)
+                (Paquete Popular)
               </div>
             )}
 
@@ -165,7 +206,7 @@ class ConnectedPromoDetails extends Component {
             fontSize: 22
           }}
         >
-          Product Description
+          Descripción del producto
         </div>
         <div
           style={{
@@ -187,12 +228,12 @@ class ConnectedPromoDetails extends Component {
             fontSize: 22
           }}
         >
-     
+          Tambien te puede interesar
 
      
         </div>
         {this.state.relatedItems.slice(0, 3).map(x => {
-          return <Item key={x.id} item={x} />;
+          return <ItemPromo key={x.id} item={x} />;
         })}
         </div>
        )}

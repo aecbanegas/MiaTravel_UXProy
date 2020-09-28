@@ -38,8 +38,9 @@ class ProductList extends Component {
   }
 
   componentDidMount = () => {
-    this.fetchData();
-    
+    setTimeout(()=>{
+      this.fetchData();
+    },800)
   };
 
   async fetchData() {
@@ -50,7 +51,7 @@ class ProductList extends Component {
 
     let results = await Api.searchItems(qsAsObject);
 
-    this.setState({
+    this.setState({ 
       items: results.data,
       loading: false,
       totalItemsCount: results.totalLength

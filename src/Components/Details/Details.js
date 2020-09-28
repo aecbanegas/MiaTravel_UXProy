@@ -129,7 +129,9 @@ class ConnectedDetails extends Component {
 
   componentDidMount() {
     this.isCompMounted = true;
-    this.fetchProductAndRelatedItems(this.props.match.params.id);
+    setTimeout(() => {
+      this.fetchProductAndRelatedItems(this.props.match.params.id);
+    }, 800)
   }
 
   componentWillUnmount() {
