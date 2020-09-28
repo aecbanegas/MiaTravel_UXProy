@@ -237,7 +237,7 @@ class ConnectedDetails extends Component {
                 fontSize: 22
               }}
             >
-              Product Description
+              Descripción del producto
           </div>
             <div
               style={{
@@ -259,7 +259,7 @@ class ConnectedDetails extends Component {
                 fontSize: 22
               }}
             >
-
+              Tambien te puede interesar
 
 
             </div>

@@ -43,6 +43,18 @@ class ConnectedItem extends Component {
             <div style={{ color: "#1a9349", fontWeight: "bold", margin: 5 }}>
               {this.props.item.category}
             </div>
+            <div
+              style={{
+                color: "#93891a",
+                marginLeft: 5,
+                fontWeight: "bold",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+              }}
+            >
+              Promoción
+            </div>
           </CardContent>
         </CardActionArea>
         
