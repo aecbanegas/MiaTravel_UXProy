@@ -129,9 +129,9 @@ class ConnectedDetails extends Component {
 
   componentDidMount() {
     this.isCompMounted = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.fetchProductAndRelatedItems(this.props.match.params.id);
-    },800)
+    }, 800)
   }
 
   componentWillUnmount() {
@@ -149,15 +149,15 @@ class ConnectedDetails extends Component {
 
     return (
       <div>
-        <Modal 
-        isOpen={this.state.show}
-        style={customStyles}
+        <Modal
+          isOpen={this.state.show}
+          style={customStyles}
         >
           <h2 className="title">Mia Travel</h2>
-          <hr/>
-          <p className="text">Su reserva fue exitosa!!! <br/> revise su correo :D</p>
+          <hr />
+          <p className="text">Su reserva fue exitosa!!! <br /> revise su correo :D</p>
           <Button
-            style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC"}}
+            style={{ width: 170, marginTop: 5, fontFamily: 'Karla', borderColor: "#36D1DC" }}
             color="inherit"
             variant="outlined"
             onClick={() => { this.showModal() }}
@@ -165,113 +165,113 @@ class ConnectedDetails extends Component {
             Close
           </Button>
         </Modal>
-      <UserContext.Consumer>
-        {context => (
-          <div style={{ padding: 10 }}>
-            
-            <div
-              style={{
-                marginBottom: 20,
-                marginTop: 10,
-                fontSize: 22
-              }}
-            >
-              {this.state.item.name}
-            </div>
-            <div style={{ display: "flex" }}>
-              <img
-                src={this.state.item.imageUrls[0]}
-                alt=""
-                width={250}
-                height={250}
-                style={{
-                  border: "1px solid lightgray",
-                  borderRadius: "5px",
-                  objectFit: "cover"
-                }}
-              />
+        <UserContext.Consumer>
+          {context => (
+            <div style={{ padding: 10 }}>
+
               <div
                 style={{
-                  flex: 1,
-                  marginLeft: 20,
-                  display: "flex",
-                  flexDirection: "column"
+                  marginBottom: 20,
+                  marginTop: 10,
+                  fontSize: 22
                 }}
               >
+                {this.state.item.name}
+              </div>
+              <div style={{ display: "flex" }}>
+                <img
+                  src={this.state.item.imageUrls[0]}
+                  alt=""
+                  width={250}
+                  height={250}
+                  style={{
+                    border: "1px solid lightgray",
+                    borderRadius: "5px",
+                    objectFit: "cover"
+                  }}
+                />
                 <div
                   style={{
-                    fontSize: 16
+                    flex: 1,
+                    marginLeft: 20,
+                    display: "flex",
+                    flexDirection: "column"
                   }}
                 >
-                  Precio: {this.state.item.price} $
+                  <div
+                    style={{
+                      fontSize: 16
+                    }}
+                  >
+                    Precio: {this.state.item.price} $
               </div>
-                {this.state.item.popular && (
-                  <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                    (Paquete Popular)
-                  </div>
-                )}
+                  {this.state.item.popular && (
+                    <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
+                      (Paquete Popular)
+                    </div>
+                  )}
                   <Button
-                  style={{ width: 170, marginTop: 5, borderColor:"#36D1DC"}}
-                  color="inherit"
-                  variant="outlined"
-                  onClick={() => {
-                    this.props.dispatch(
-                      addItemInCart({
-                        ...this.state.item,
-                        quantity: this.state.quantity
-                      })
-                    );
-                    //this.handleSubmit(context.name, context.email);
-                    this.showModal();
-                  }}
-                >
-                  Reservar
+                    style={{ width: 170, marginTop: 5, borderColor: "#36D1DC" }}
+                    color="inherit"
+                    variant="outlined"
+                    onClick={() => {
+                      this.props.dispatch(
+                        addItemInCart({
+                          ...this.state.item,
+                          quantity: this.state.quantity
+                        })
+                      );
+                      //this.handleSubmit(context.name, context.email);
+                      this.showModal();
+                    }}
+                  >
+                    Reservar
                 </Button>
 
+                </div>
               </div>
-            </div>
 
-            {/* Product description */}
-            <div
-              style={{
-                marginTop: 20,
-                marginBottom: 20,
-                fontSize: 22
-              }}
-            >
-              Descripción del producto
+              {/* Product description */}
+              <div
+                style={{
+                  marginTop: 20,
+                  marginBottom: 20,
+                  fontSize: 22
+                }}
+              >
+                Descripción del producto
           </div>
-            <div
-              style={{
-                maxHeight: 200,
-                fontSize: 13,
-                overflow: "auto"
-              }}
-            >
-              {this.state.item.description
-                ? this.state.item.description
-                : "Not available"}
+              <div
+                style={{
+                  maxHeight: 200,
+                  fontSize: 13,
+                  overflow: "auto"
+                }}
+              >
+                {this.state.item.description
+                  ? this.state.item.description
+                  : "Not available"}
+              </div>
+
+              {/* Relateditems */}
+              <div
+                style={{
+                  marginTop: 20,
+                  marginBottom: 10,
+                  fontSize: 22
+                }}
+              >
+                Tambien te puede interesar
+
+
             </div>
-
-            {/* Relateditems */}
-            <div
-              style={{
-                marginTop: 20,
-                marginBottom: 10,
-                fontSize: 22
-              }}
-            >
-              Tambien te puede interesar
-
+              {this.state.relatedItems.slice(0, 3).map(x => {
+                return <Item key={x.id} item={x} />;
+              })}
 
             </div>
-            {this.state.relatedItems.slice(0, 3).map(x => {
-              return <Item key={x.id} item={x} />;
-            })}
-            
-          </div>
-        )}
-      </UserContext.Consumer>
+          )}
+        </UserContext.Consumer>
       </div>
     );
   }

@@ -9,7 +9,33 @@ import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Login from "../../Login";
 import UserProvider, { UserContext } from "../../Providers/UserProvider";
+import { Link } from "react-router-dom";
+import Modal from 'react-modal'
 
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+  },
+  content: {
+    position: 'absolute',
+    top: '18%',
+    left: '25%',
+    right: '25%',
+    bottom: 'auto',
+    border: '1px solid #ccc', //borderColor: "#36D1DC"
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '4px',
+    outline: 'none',
+    padding: '20px'
+  }
+};
 class ConnectedPromoDetails extends Component {
   constructor(props) {
     super(props);
@@ -95,6 +121,19 @@ class ConnectedPromoDetails extends Component {
     return (
       <UserContext.Consumer>
        {context => (
+         !context.isAuth 
+         ? 
+         <Modal 
+         isOpen={true}
+         style={customStyles}
+         >
+           <h2 className="title">Mia Travel</h2>
+           <hr/>
+           <p className="text">Solo los usuarios registrados pueden revisar las promociones! <br/>
+           Lo sentimos :(</p>
+           <Link to="/" style={{ color: "#36D1DC" }}>Back to Home</Link>
+         </Modal> 
+         :
       <div style={{ padding: 10 }}>
         <div
           style={{
