@@ -4,7 +4,7 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { addItemInCart } from "../../Redux/Actions";
 import ApiPromo from "../../ApiPromo";
-import Item from "../Item/Item";
+import ItemPromo from "../ItemPromo/ItemPromo";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Login from "../../Login";
@@ -74,7 +74,9 @@ class ConnectedPromoDetails extends Component {
 
   componentDidMount() {
     this.isCompMounted = true;
-    this.fetchProductAndRelatedItems(this.props.match.params.id);
+    setTimeout(()=>{
+      this.fetchProductAndRelatedItems(this.props.match.params.id);
+    },800)
   }
 
   componentWillUnmount() {
@@ -128,11 +130,11 @@ class ConnectedPromoDetails extends Component {
                 fontSize: 16
               }}
             >
-              Price: {this.state.item.price} $
+              Precio: {this.state.item.price} $
             </div>
             {this.state.item.popular && (
               <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                (Popular product)
+                (Paquete Popular)
               </div>
             )}
 
@@ -192,7 +194,7 @@ class ConnectedPromoDetails extends Component {
      
         </div>
         {this.state.relatedItems.slice(0, 3).map(x => {
-          return <Item key={x.id} item={x} />;
+          return <ItemPromo key={x.id} item={x} />;
         })}
         </div>
        )}

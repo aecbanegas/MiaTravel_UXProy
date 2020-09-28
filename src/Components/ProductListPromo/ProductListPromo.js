@@ -64,8 +64,9 @@ class ProductListPromo extends Component {
   }
 
   componentDidMount = () => {
-    this.fetchData();
-    
+    setTimeout(()=>{
+      this.fetchData();
+    },800)
   };
 
   async fetchData() {

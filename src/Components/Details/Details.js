@@ -129,7 +129,9 @@ class ConnectedDetails extends Component {
 
   componentDidMount() {
     this.isCompMounted = true;
-    this.fetchProductAndRelatedItems(this.props.match.params.id);
+    setTimeout(()=>{
+      this.fetchProductAndRelatedItems(this.props.match.params.id);
+    },800)
   }
 
   componentWillUnmount() {
@@ -201,11 +203,11 @@ class ConnectedDetails extends Component {
                     fontSize: 16
                   }}
                 >
-                  Price: {this.state.item.price} $
+                  Precio: {this.state.item.price} $
               </div>
                 {this.state.item.popular && (
                   <div style={{ fontSize: 14, marginTop: 5, color: "#228B22" }}>
-                    (Popular product)
+                    (Paquete Popular)
                   </div>
                 )}
                   <Button
